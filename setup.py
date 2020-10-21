@@ -4,31 +4,12 @@ from distutils.dir_util import copy_tree
 import os
 import shutil
 
-#class InstallCommand(install):             
-#    user_options = install.user_options + [
-#        ('board=', None, 'define which development board is used <Zedboard> <trenz>'),
-#    ]                                      
-#
-#    def initialize_options(self):          
-#        install.initialize_options(self)   
-#        self.board = None  
-#
-#    def finalize_options(self):                   
-#        print("value of board is", self.board)
-#        install.finalize_options(self)            
-#
-#    def run(self):                                
-#        print(self.board)                       
-#        install.run(self)             
-
-
 # global variables
 board = os.environ['BOARD']
 repo_proj_folder = f'boards/{board}'
+lib_folder = 'libs'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 hw_data_files = []
-
-
 
 # check whether board is supported
 def check_env(repo_board_folder):
@@ -37,14 +18,12 @@ def check_env(repo_board_folder):
     if not os.path.isdir(board_notebooks_dir):
         raise ValueError("Directory {} does not exist.".format(board_notebooks_dir))
 
-
 # copy overlays to python package
 def copy_overlays(repo_board_folder, ovl_dest):
     src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
     dst_ol_dir = os.path.join(ovl_dest, 'bitstream')
     copy_tree(src_ol_dir, dst_ol_dir)
     hw_data_files.extend([os.path.join("..", dst_ol_dir, f) for f in os.listdir(dst_ol_dir)])
-
 
 # copy notebooks to jupyter home
 def copy_notebooks(repo_board_folder, ovl_dest):
@@ -55,13 +34,12 @@ def copy_notebooks(repo_board_folder, ovl_dest):
     copy_tree(src_nb_dir, dst_nb_dir)
 
 # copy libs to pynq/lib
-def copy_libs(repo_board_folder, ovl_dest):
-    src_nb_dir = os.path.join(repo_board_folder, 'libs')
-    dst_nb_dir = os.path.join(board_notebooks_dir, ovl_dest)
+def copy_libs():
+    src_nb_dir = ('libs')
+    dst_nb_dir = ('libs')
     if os.path.exists(dst_nb_dir):
         shutil.rmtree(dst_nb_dir)
     copy_tree(src_nb_dir, dst_nb_dir)
-
 
 subfolders = [ f.name for f in os.scandir(repo_proj_folder) if f.is_dir() ]
 for proj in subfolders:
@@ -73,7 +51,7 @@ for proj in subfolders:
 	check_env(repo_board_folder)
 	copy_overlays(repo_board_folder, ovl_dest)
 	copy_notebooks(repo_board_folder, ovl_dest)
-#	copy_libs(repo_board_folder, ovl_dest)
+	copy_libs()
 
 setup(
 	name= "pynq_overlays",
