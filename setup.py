@@ -33,7 +33,7 @@ hw_data_files = []
 
 
 # check whether board is supported
-def check_env():
+def check_env(repo_board_folder):
     if not os.path.isdir(repo_board_folder):
         raise ValueError("Board {} is not supported.".format(board))
     if not os.path.isdir(board_notebooks_dir):
@@ -65,12 +65,12 @@ def copy_libs(repo_board_folder, ovl_dest):
     copy_tree(src_nb_dir, dst_nb_dir)
 
 
-check_env()
 directories = glob.glob("*/")
 for proj in directories:
 	print(proj)
 	repo_board_folder = f'boards/{board}/'+proj
 	ovl_dest = proj
+	check_env(repo_board_folder)
 	copy_overlays(repo_board_folder, ovl_dest)
 	copy_notebooks(repo_board_folder, ovl_dest)
 	copy_libs(repo_board_folder, ovl_dest)
