@@ -67,7 +67,7 @@ def copy_libs(repo_board_folder, ovl_dest):
 
 check_env()
 directories = glob.glob("*/")
-for(proj in directories):
+for proj in directories:
 	print(proj)
 	repo_board_folder = f'boards/{board}/'+proj
 	ovl_dest = proj
