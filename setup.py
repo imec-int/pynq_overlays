@@ -4,7 +4,7 @@ from setuptools.command.install import install
 from distutils.dir_util import copy_tree
 import os
 import shutil
-
+import glob
 
 class InstallCommand(install):             
     user_options = install.user_options + [
@@ -66,7 +66,8 @@ def copy_libs(repo_board_folder, ovl_dest):
 
 
 check_env()
-for(proj in repo_proj_folder):
+directories = glob.glob("*/")
+for(proj in directories):
 	print(proj)
 	repo_board_folder = f'boards/{board}/'+proj
 	ovl_dest = proj

@@ -6,4 +6,4 @@ usage: on the development board, install the packages by opening a jupyter termi
 os.environ['BOARD']
 >
 
-sudo pip3 install — upgrade git+https://github.com/imec-int/pynq_overlays.git --install-option="board=Zedboard"
+sudo pip3 install --upgrade git+https://github.com/imec-int/pynq_overlays.git --install-option="board=Zedboard"
