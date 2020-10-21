@@ -1,27 +1,25 @@
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-#import neo_pynq
 from distutils.dir_util import copy_tree
 import os
 import shutil
-import glob
 
-class InstallCommand(install):             
-    user_options = install.user_options + [
-        ('board=', None, 'define which development board is used <Zedboard> <trenz>'),
-    ]                                      
-
-    def initialize_options(self):          
-        install.initialize_options(self)   
-        self.board = None  
-
-    def finalize_options(self):                   
-        print("value of board is", self.board)
-        install.finalize_options(self)            
-
-    def run(self):                                
-        print(self.board)                       
-        install.run(self)             
+#class InstallCommand(install):             
+#    user_options = install.user_options + [
+#        ('board=', None, 'define which development board is used <Zedboard> <trenz>'),
+#    ]                                      
+#
+#    def initialize_options(self):          
+#        install.initialize_options(self)   
+#        self.board = None  
+#
+#    def finalize_options(self):                   
+#        print("value of board is", self.board)
+#        install.finalize_options(self)            
+#
+#    def run(self):                                
+#        print(self.board)                       
+#        install.run(self)             
 
 
 # global variables
@@ -65,15 +63,17 @@ def copy_libs(repo_board_folder, ovl_dest):
     copy_tree(src_nb_dir, dst_nb_dir)
 
 
-directories = glob.glob("*/")
-for proj in directories:
+subfolders = [ f.name for f in os.scandir(repo_proj_folder) if f.is_dir() ]
+for proj in subfolders:
 	print(proj)
+	if(proj=="pip-egg-info"):
+		continue
 	repo_board_folder = f'boards/{board}/'+proj
 	ovl_dest = proj
 	check_env(repo_board_folder)
 	copy_overlays(repo_board_folder, ovl_dest)
 	copy_notebooks(repo_board_folder, ovl_dest)
-	copy_libs(repo_board_folder, ovl_dest)
+#	copy_libs(repo_board_folder, ovl_dest)
 
 setup(
 	name= "pynq_overlays",
@@ -87,5 +87,4 @@ setup(
 	 '': hw_data_files,
 	},
 	description= "library for pynq overlay packages",
-	cmdclass={'install': InstallCommand},
 )
