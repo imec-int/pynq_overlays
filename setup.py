@@ -35,7 +35,7 @@ hw_data_files = []
 # check whether board is supported
 def check_env(repo_board_folder):
     if not os.path.isdir(repo_board_folder):
-        raise ValueError("Board {} is not supported.".format(board))
+        raise ValueError("Board {} is not supported., as {} directory does not exist".format(board, repo_board_folder))
     if not os.path.isdir(board_notebooks_dir):
         raise ValueError("Directory {} does not exist.".format(board_notebooks_dir))
 
