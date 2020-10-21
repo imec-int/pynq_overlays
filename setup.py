@@ -35,8 +35,11 @@ def copy_notebooks(repo_board_folder, ovl_dest):
 
 # copy libs to pynq/lib
 def copy_libs():
-    src_lib_dir = os.path.join('.', 'libs')
-    dst_lib_dir = os.path.join('.', 'libs')
+    src_lib_dir = os.path.join('.','libs')
+    print("source:")
+    print(os.listdir(src_lib_dir))
+    dst_lib_dir = os.path.join(board_notebooks_dir, 'libs')
+    print("dest: ",dst_lib_dir)
     if os.path.exists(dst_lib_dir):
         shutil.rmtree(dst_lib_dir)
     copy_tree(src_lib_dir, dst_lib_dir)
@@ -51,7 +54,7 @@ for proj in subfolders:
 	check_env(repo_board_folder)
 	copy_overlays(repo_board_folder, ovl_dest)
 	copy_notebooks(repo_board_folder, ovl_dest)
-	copy_libs()
+copy_libs()
 
 setup(
 	name= "pynq_overlays",
