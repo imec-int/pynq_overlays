@@ -35,8 +35,8 @@ def copy_notebooks(repo_board_folder, ovl_dest):
 
 # copy libs to pynq/lib
 def copy_libs():
-    src_lib_dir = ('./libs')
-    dst_lib_dir = ('./libs')
+    src_lib_dir = os.path.join('.', 'libs')
+    dst_lib_dir = os.path.join('.', 'libs')
     if os.path.exists(dst_lib_dir):
         shutil.rmtree(dst_lib_dir)
     copy_tree(src_lib_dir, dst_lib_dir)
