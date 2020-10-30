@@ -5,10 +5,9 @@ import spidev
 
 
 class AD9675_spi():
-    def __init__(self, spi, devid) -> None:
+    def __init__(self, spi) -> None:
         print("initiating SPI for AD9675")
         self.spi = spi
-        self.devid = (devid & 0x1F)
 
     def SPI_example_startup_sequence(self):
         '''
@@ -46,6 +45,13 @@ class AD9675_spi():
         for i in flow:
             self.writeReg(i[0], i[1])
 
+    def address_unique_AD(self, devid):
+        chip_addr_en_val = (0x20 | (devid & 0x1F))
+        self.writeReg(reg.CHIP_ADDR_EN, chip_addr_en_val)
+
+    def address_all_AD(self):
+        self.writeReg(reg.CHIP_ADDR_EN, 0x00)
+
     def readReg(self, regAddr):
         address = 0x00 | regAddr
         resp = self.spi.xfer2([address, 0x00])
@@ -56,7 +62,11 @@ class AD9675_spi():
 
 
 def main():
-    adc = AD9675_spi()
+    spi = spidev.SpiDev()
+    spi.open(0, 0)
+    devid = 0b00000
+    adc = AD9675_spi(spi, devid)
+    adc.SPI_example_startup_sequence()
 
 
 if __name__ == '__main__':

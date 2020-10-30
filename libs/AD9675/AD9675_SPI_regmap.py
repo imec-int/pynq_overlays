@@ -15,17 +15,17 @@ CHIP_PORT_CONFIG = {'addr': 0x000,    'def_val': 0x18}
 CHIP_ID = {'addr': 0x001,    'def_val': 0xA9}
 CHIP_GRADE = {'addr': 0x002,    'def_val': 0x00}
 
-# '''
-# Device index and update registers
-# '''
+'''
+Device index and update registers
+'''
 
 DEVICE_INDEX_2 = {'addr': 0x004,    'def_val': 0x0F}
 DEVICE_INDEX_1 = {'addr': 0x005,    'def_val': 0x3F}
 DEVICE_UPDATE = {'addr': 0x0FF,    'def_val': 0x00}
 
-# '''
-# Program Function Registers
-# '''
+'''
+Program Function Registers
+'''
 GLOBAL_MODES = {'addr': 0x008, 'def_val': 0x01}
 GLOBAL_CLOCK = {'addr': 0x009, 'def_val': 0x01}
 PLL_STATUS = {'addr': 0x00A, 'def_val': 0x00}
@@ -117,9 +117,3 @@ PROFILE_MEMORY = {
     'def_val': 0x00,
     'end_addr': 0xFFF
 }
-
-
-# <NAME> = {
-#     'addr': <addr>,
-#     'def_val': <def_val>
-# }
