@@ -1,5 +1,3 @@
-from enum import Enum
-
 '''
 AD9675_SPI_regmap
 memory map register table
@@ -9,16 +7,13 @@ according to AD9675 datasheet pages 47-58
 '''
 chip_configuration_registers
 '''
-
 CHIP_PORT_CONFIG = {'addr': 0x000,    'def_val': 0x18}
-
 CHIP_ID = {'addr': 0x001,    'def_val': 0xA9}
 CHIP_GRADE = {'addr': 0x002,    'def_val': 0x00}
 
 '''
 Device index and update registers
 '''
-
 DEVICE_INDEX_2 = {'addr': 0x004,    'def_val': 0x0F}
 DEVICE_INDEX_1 = {'addr': 0x005,    'def_val': 0x3F}
 DEVICE_UPDATE = {'addr': 0x0FF,    'def_val': 0x00}
@@ -105,8 +100,6 @@ START_CODE_LSB = {'addr': 0x18C, 'def_val': 0x72}
 FRAME_SIZE_MSB = {'addr': 0x190, 'def_val': 0x10}
 SAMPLE_CLOCK_CONVERTER = {'addr': 0x199, 'def_val': 0x00}
 JTX_FRAME_SIZE = {'addr': 0x19C, 'def_val': 0x10}
-
-
 '''
 Profile memory registers
 32x64 bits
